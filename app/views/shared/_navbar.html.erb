@@ -1,0 +1,47 @@
+<nav x-data="{ isOpen: false }" class="relative bg-gray-900 shadow">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-16">
+      <%= link_to projects_path, class: "flex items-center" do %>
+        <%= image_tag "https://flowbite.com/docs/images/logo.svg", class: "h-8 w-auto", alt: "Logo" %>
+        <span class="ml-3 text-xl font-semibold text-white">Project Manager</span>
+      <% end %>
+      <!-- Mobile menu button -->
+      <button
+        type="button"
+        class="md:hidden inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500"
+        onclick="this.closest('nav').querySelector('#mobile-menu').classList.toggle('hidden')"
+      >
+        <span class="sr-only">Open main menu</span>
+        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+      <!-- Desktop menu -->
+      <div class="hidden md:flex md:items-center md:space-x-8">
+        <ul class="flex space-x-8 items-center">
+          <li>
+            <%= link_to "Projects", projects_path, class: "text-gray-300 hover:text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium transition duration-150" %>
+          </li>
+          <li>
+            <%= link_to "LinkedIn", "https://www.linkedin.com/in/hayao-mori/", class: "text-gray-300 hover:text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium transition duration-150", target: "_blank" %>
+          </li>
+          <li>
+            <%= link_to "Github", "https://github.com/HmoriKLTA", class: "text-gray-300 hover:text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium transition duration-150", target: "_blank" %>
+          </li>
+          <li>
+            <%= link_to "Portfolio", "https://hayaomori.me/", class: "text-gray-300 hover:text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium transition duration-150", target: "_blank" %>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- Mobile menu -->
+  <div class="hidden md:hidden" id="mobile-menu">
+    <div class="px-2 pt-2 pb-3 space-y-1 bg-gray-800">
+      <%= link_to "Projects", projects_path, class: "text-gray-300 hover:text-white hover:bg-gray-700 block px-3 py-2 rounded-md text-base font-medium transition duration-150" %>
+      <%= link_to "LinkedIn", "https://www.linkedin.com/in/hayao-mori/", class: "text-gray-300 hover:text-white hover:bg-gray-700 block px-3 py-2 rounded-md text-base font-medium transition duration-150", target: "_blank" %>
+      <%= link_to "Github", "https://github.com/HmoriKLTA", class: "text-gray-300 hover:text-white hover:bg-gray-700 block px-3 py-2 rounded-md text-base font-medium transition duration-150", target: "_blank" %>
+      <%= link_to "Portfolio", "https://hayaomori.me/", class: "text-gray-300 hover:text-white hover:bg-gray-700 block px-3 py-2 rounded-md text-base font-medium transition duration-150", target: "_blank" %>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,90 @@
+<%= form_with(model: todo, class: "space-y-6") do |form| %>
+  <% if todo.errors.any? %>
+    <div class="bg-red-50 border-l-4 border-red-400 p-4 mb-6">
+      <div class="flex">
+        <div class="flex-shrink-0">
+          <svg class="h-5 w-5 text-red-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+          </svg>
+        </div>
+        <div class="ml-3">
+          <h3 class="text-sm font-medium text-red-800">
+            <%= pluralize(todo.errors.count, "error") %> prohibited this Task from being saved:
+          </h3>
+          <div class="mt-2 text-sm text-red-700">
+            <ul class="list-disc pl-5 space-y-1">
+              <% todo.errors.each do |error| %>
+                <li><%= error.full_message %></li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+  <div class="space-y-2">
+    <%= form.label :name, "Task Name", class: "block text-sm font-semibold text-gray-900" %>
+    <div class="mt-1 relative rounded-md shadow-sm">
+      <%= form.text_field :name,
+          class: "block w-full px-4 py-3 text-gray-900 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-600 focus:border-indigo-600 sm:text-sm",
+          placeholder: "Enter task name" %>
+    </div>
+    <p class="text-sm text-gray-500">Give your task a clear, actionable name</p>
+  </div>
+  <div class="space-y-2">
+    <%= form.label :description, "Description", class: "block text-sm font-semibold text-gray-900" %>
+    <div class="mt-1">
+      <%= form.text_area :description,
+          rows: 4,
+          class: "block w-full px-4 py-3 text-gray-900 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-600 focus:border-indigo-600 sm:text-sm",
+          placeholder: "Describe what needs to be done..." %>
+      <p class="mt-2 text-sm text-gray-500">Add any important details, steps, or context for this task</p>
+    </div>
+  </div>
+  <div class="bg-gray-50 rounded-lg p-4 space-y-2">
+    <div class="flex items-start">
+      <div class="flex items-center h-5">
+        <%= form.check_box :completed,
+            class: "h-5 w-5 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600 focus:ring-offset-0 cursor-pointer" %>
+      </div>
+      <div class="ml-3">
+        <%= form.label :completed, "Task Status", class: "text-sm font-semibold text-gray-900" %>
+        <p class="text-sm text-gray-500">Toggle this if the task has been completed</p>
+      </div>
+    </div>
+  </div>
+  <div class="space-y-2">
+    <%= form.label :priority, "Priority Level", class: "block text-sm font-semibold text-gray-900" %>
+    <div class="mt-1 relative">
+      <%= form.number_field :priority,
+          in: 0..5,
+          class: "block w-full px-4 py-3 text-gray-900 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-600 focus:border-indigo-600 sm:text-sm",
+          placeholder: "Enter priority (0-5)" %>
+      <div class="mt-2 flex items-center space-x-2">
+        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">0 = Low</span>
+        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">5 = High</span>
+      </div>
+    </div>
+  </div>
+  <div class="space-y-2">
+    <%= form.label :project_id, "Assign to Project", class: "block text-sm font-semibold text-gray-900" %>
+    <div class="mt-1">
+      <%= form.collection_select :project_id, Project.all, :id, :name,
+          { prompt: "Choose a project for this task" },
+          { class: "block w-full px-4 py-3 text-gray-900 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-600 focus:border-indigo-600 sm:text-sm" } %>
+      <p class="mt-2 text-sm text-gray-500">Select the project this task belongs to</p>
+    </div>
+  </div>
+  <div class="pt-6 border-t border-gray-200">
+    <div class="flex justify-end space-x-3">
+      <%#= link_to todos_path
+          class: "inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-lg text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" do %>
+        <%# <svg class="mr-2 -ml-1 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
+        </svg>
+        Cancel %>
+        <%# end %>
+        <%= form.submit submit_text || (todo.new_record? ? "Create Task" : "Update Task"), class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-lg shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+      </div>
+    </div>
+  <% end %>
